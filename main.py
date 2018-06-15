@@ -7,7 +7,13 @@ import requests
 import ast
 
 def payload_generation(phone,prod_id,simulate) :
-    external_id = str(int(1000*time.time()))
+    """
+    Generate the data payload that is used to trigger a bundle
+    recharge.
+    """
+    #generate a unique external id
+    external_id = str(int(1000*time.time())) 
+    #now create the json object that will be used
     fixed_recharge = {
         "account_number":phone,
         "product_id" : prod_id,
@@ -35,6 +41,10 @@ def payload_generation(phone,prod_id,simulate) :
     return(fixed_recharge)
   
 def return_transferto_goods_vals(apikey,apisecret,url,payload):
+    """
+    This function could probably be removed
+    It is very similar to return_transferto_goods_vals_post.
+    """
     import requests
     import time
     import hashlib
@@ -52,6 +62,14 @@ def return_transferto_goods_vals(apikey,apisecret,url,payload):
     return(response)
 
 def return_transferto_goods_vals_post(apikey,apisecret,url,payload):
+    """
+    This function forms the basis of how to use the Product & Goods
+    API.
+    This function generates the header files for the TransferTo product
+    API.
+    It uses the APIKEY, APISECRET and URL endpoint.
+    It feeds the payload to the API endpoint using a POST
+    """
     import requests
     import time
     import hashlib
@@ -69,6 +87,9 @@ def return_transferto_goods_vals_post(apikey,apisecret,url,payload):
     return(response)
 
 def request_airtime_api(url,payload_action):
+    """
+    This function forms the basis of using the transferTo airtime API
+    """
     key = str(int(1000*time.time()))
     md5 = hashlib.md5()
     md5.update(payload_action['login'].encode("UTF-8"))
@@ -81,6 +102,11 @@ def request_airtime_api(url,payload_action):
     return(response)
 
 def get_msisdn_products(msisdn,json_data,apikey,apisecret):
+    """
+    This function will 
+    1. Find the network provider of an MSISDN
+    2. Return available products associated with that MSISDN
+    """
     payload = {
         'login': json_data['login'],
         'token' : json_data['token'],
@@ -103,6 +129,12 @@ def get_msisdn_products(msisdn,json_data,apikey,apisecret):
     return(products_json)
 
 def get_product_id(product_dict,recharge_val):
+    """
+    This function will 
+    1. Iterate over a dictionary of possible products
+    2. Return a product that contains a specific string defined in
+    recharge_val
+    """
     for product in product_dict["fixed_value_recharges"]:
         product_name = product['product_name']
         if recharge_val in product_name:
@@ -111,12 +143,20 @@ def get_product_id(product_dict,recharge_val):
             
 
 def jsonify(transferto_content):
+    """
+    This function will return a json string of the airtime API
+    It isn't pretty but it works.
+    """
     stt = transferto_content.decode('utf8').replace("\r\n", "\" , \"").replace("=", "\" : \"")
     stt2 = "\""+stt
     stt3 = "{" + stt2.rstrip(", ,\"")+"\"" + "}"
     return(ast.literal_eval(stt3))
 
 def ping(login,url_login,token):
+    """
+    Implementation of the ping functionality to check that the API
+    is actually up.
+    """
     key = str(int(1000*time.time()))
     md5 = hashlib.md5()
     md5.update(login.encode("UTF-8"))
@@ -130,10 +170,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return 'Hmmmm!'
 
 @app.route('/getProducts', methods = ['POST'])
 def get_product():
+    """
+    End point to return the products associated with a phone number
+    """
     json_data = request.get_json()
     apikey = json_data['apikey']
     apisecret = json_data['apisecret']
@@ -152,6 +195,9 @@ def get_product():
 
 @app.route('/addData', methods = ['POST'])
 def update_text():
+    """
+    End point to actually load data onto a phone number
+    """
     logging.basicConfig(filename='myapp.log', 
                         level=logging.INFO)
     logging.info('Started')
