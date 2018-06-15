@@ -1,1 +1,8 @@
 Flask==0.12.1
+json==2.09
+logging==0.5.1.2
+pandas==0.22.0
+time
+hashlib
+requests==2.18.4
+ast
