@@ -15,14 +15,16 @@ python3 main.py
 
 This should have the process running locally.
 
-Now we need to deploy it onto Azure. Firstly create an Azure login.
+Now we need to deploy it onto Azure. 
 
-az webapp deployment user set --user-name <username> --password <password>
-az group create --name myResourceGroup --location "West Europe"
-az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku FREE
-az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name <app_name> --runtime "python|3.4" --deployment-local-git
-git remote add azure <deploymentLocalGitUrl-from-create-step>
-git push azure master
+1. Firstly create an Azure login.
+2. az webapp deployment user set --user-name <username> --password <password>
+3. az group create --name myResourceGroup --location "West Europe"
+4. az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku FREE
+5. az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name <app_name> --runtime "python|3.4" --deployment-local-git
+6. git remote add azure <deploymentLocalGitUrl-from-create-step>
+7. git push azure master
+
 http://<app_name>.azurewebsites.net
 
 Now it should be working.
