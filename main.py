@@ -146,6 +146,7 @@ def update_text():
     token = json_data['token']
     phone = json_data['phone']
     value = json_data['products_val']
+    simulate = json_data['simulate']
     products = get_msisdn_products(phone, 
                                    json_data, 
                                    apikey, 
@@ -154,7 +155,7 @@ def update_text():
                                 value)
     fixed_recharge = payload_generation(phone,
                                         str(product_id),
-                                        1)
+                                        simulate)
     services = return_transferto_goods_vals_post(apikey,
                                                  apisecret,
                                                  'https://api.transferto.com/v1.1/transactions/fixed_value_recharges',
