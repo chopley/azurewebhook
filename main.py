@@ -22,7 +22,7 @@ def payload_generation(phone,prod_id,simulate) :
             "middle_name":" ",
             "first_name":"",
             "email":"",
-            "mobile":"0844301160"
+            "mobile":"08443011"
     },
         "recipient":{
             "last_name":"",
@@ -132,7 +132,7 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/resource', methods = ['POST'])
+@app.route('/upload_data', methods = ['POST'])
 def update_text():
     logging.basicConfig(filename='myapp.log', 
                         level=logging.INFO)
