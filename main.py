@@ -1,10 +1,12 @@
-from flask import Flask, abort, request 
+from flask import Flask, abort, request, logging 
+import logging
 import json
 import pandas
 import time
 import hashlib
 import requests
 import ast
+
 
 def return_transferto_goods_vals(apikey,apisecret,url,payload):
     import requests
@@ -96,6 +98,8 @@ def hello_world():
 
 @app.route('/resource', methods = ['POST'])
 def update_text():
+  logging.basicConfig(filename='myapp.log', level=logging.INFO)
+  logging.info('Started')
   json_data = request.get_json()
   apikey = json_data['apikey']
   apisecret = json_data['apisecret']
@@ -104,7 +108,9 @@ def update_text():
   token = json_data['token']
   phone = json_data['phone']
   products = get_msisdn_products(phone,json_data,apikey,apisecret)
+  logging.info('%s products', products)
+  logging.info('Finished')
   return json.dumps(products)
 
-if __name__ == '__main__':
+if __name__ == '__main__': 
   app.run()
