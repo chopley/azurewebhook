@@ -132,6 +132,23 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
+@app.route('/getProducts', methods = ['POST'])
+def update_text():
+    json_data = request.get_json()
+    apikey = json_data['apikey']
+    apisecret = json_data['apisecret']
+    login = json_data['login']
+    url_login = json_data['url_login']
+    token = json_data['token']
+    phone = json_data['phone']
+    value = json_data['products_val']
+    simulate = json_data['simulate']
+    products = get_msisdn_products(phone, 
+                                   json_data, 
+                                   apikey, 
+                                   apisecret)
+    return(products.text)
+
 @app.route('/addData', methods = ['POST'])
 def update_text():
     logging.basicConfig(filename='myapp.log', 
