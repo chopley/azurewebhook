@@ -110,7 +110,7 @@ def update_text():
   #products = get_msisdn_products(phone,json_data,apikey,apisecret)
   ping(login,url_login,token)
   logging.info('Finished')
-  return json.dumps(products)
+  return json.dumps(json_date)
 
 if __name__ == '__main__': 
   app.run()
