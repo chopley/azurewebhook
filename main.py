@@ -109,10 +109,10 @@ def update_text():
     url_login = json_data['url_login']
     token = json_data['token']
     phone = json_data['phone']
-    products = get_msisdn_products(phone,json_data,apikey,apisecret)
+    products = get_msisdn_products(phone, json_data, apikey, apisecret)
     ping(login,url_login,token)
     logging.info('Finished')
-    return json.dumps(products)
+    return(str(json_data))
 
 if __name__ == '__main__': 
     app.run()
