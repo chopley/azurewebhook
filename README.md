@@ -30,7 +30,7 @@ http://<app_name>.azurewebsites.net
 Now it should be working.
 
 You can test it by:
-curl -i -H "Content-Type: application/json" -X POST -d "@addData.json" http://transferto.azurewebsites.net/getProducts
+curl -i -H "Content-Type: application/json" -X POST -d "@addData.json" http://<app_name>.azurewebsites.net/getProducts
 
 You will need a json definition file that looks like:
 ```javascript
