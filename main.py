@@ -6,7 +6,34 @@ import hashlib
 import requests
 import ast
 
-
+def payload_generation(phone,prod_id,simulate) :
+    external_id = str(int(1000*time.time()))
+    fixed_recharge = {
+        "account_number":phone,
+        "product_id" : prod_id,
+        "external_id":external_id,
+        "simulation":simulate,
+        "sender_sms_notification":"1",
+        "sender_sms_text":"Sender message",
+        "recipient_sms_notification":"1",
+        "recipient_sms_text":"",
+        "sender":{
+            "last_name":"",
+            "middle_name":" ",
+            "first_name":"",
+            "email":"",
+            "mobile":"0844301160"
+    },
+        "recipient":{
+            "last_name":"",
+            "middle_name":"",
+            "first_name":"",
+            "email":"",
+            "mobile":phone
+            }
+        }
+    return(fixed_recharge)
+  
 def return_transferto_goods_vals(apikey,apisecret,url,payload):
     import requests
     import time
@@ -71,9 +98,17 @@ def get_msisdn_products(msisdn,json_data,apikey,apisecret):
     services = return_transferto_goods_vals(apikey,apisecret,url,'')
     url = products_url + '/operators/' + operator_id + '/products'
     products = return_transferto_goods_vals(apikey,apisecret,url,'')
-    product_ids = json.loads(products.content)
+    products_json = json.loads(products.content.decode('utf8'))
     type_of_recharge = 'fixed_value_recharges'
-    return(product_ids)
+    return(products_json)
+
+def get_product_id(product_dict,recharge_val):
+    for product in product_dict["fixed_value_recharges"]:
+        product_name = product['product_name']
+        if recharge_val in product_name:
+            break        
+    return(product['product_id'])
+            
 
 def jsonify(transferto_content):
     stt = transferto_content.decode('utf8').replace("\r\n", "\" , \"").replace("=", "\" : \"")
@@ -110,9 +145,16 @@ def update_text():
     token = json_data['token']
     phone = json_data['phone']
     products = get_msisdn_products(phone, json_data, apikey, apisecret)
+    product_id = get_product_id(products,"30MB")
+    fixed_recharge = payload_generation(phone,str(product_id),1)
+    services = return_transferto_goods_vals_post(apikey,
+                                                 apisecret,
+                                                 'https://api.transferto.com/v1.1/transactions/fixed_value_recharges',
+                                                 fixed_recharge)
+    print(services.text)
     ping(login,url_login,token)
     logging.info('Finished')
-    return(str(json_data))
+    return(services.text)
 
 if __name__ == '__main__': 
     app.run(host= '0.0.0.0')
