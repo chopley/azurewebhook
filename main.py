@@ -133,7 +133,7 @@ def hello_world():
     return 'Hello, World!'
 
 @app.route('/getProducts', methods = ['POST'])
-def update_text():
+def get_product():
     json_data = request.get_json()
     apikey = json_data['apikey']
     apisecret = json_data['apisecret']
