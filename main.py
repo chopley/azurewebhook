@@ -107,8 +107,8 @@ def update_text():
   url_login = json_data['url_login']
   token = json_data['token']
   phone = json_data['phone']
-  products = get_msisdn_products(phone,json_data,apikey,apisecret)
-  logging.info('%s products', products)
+  #products = get_msisdn_products(phone,json_data,apikey,apisecret)
+  ping(login,url_login,token)
   logging.info('Finished')
   return json.dumps(products)
 
