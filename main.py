@@ -101,6 +101,7 @@ def update_text():
   logging.info('Started')
   json_data = request.get_json()
   apikey = json_data['apikey']
+  logging.info('%s ', apikey)
   apisecret = json_data['apisecret']
   login = json_data['login']
   url_login = json_data['url_login']
