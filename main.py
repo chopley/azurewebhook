@@ -147,7 +147,8 @@ def get_product():
                                    json_data, 
                                    apikey, 
                                    apisecret)
-    return(products.text)
+    print(products)
+    return(json.dumps(products))
 
 @app.route('/addData', methods = ['POST'])
 def update_text():
