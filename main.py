@@ -54,14 +54,16 @@ def request_airtime_api(url,payload_action):
     return(response)
 
 def get_msisdn_products(msisdn,json_data,apikey,apisecret):
-    payload = {'login': json_data['login'],
-           'token' : json_data['token'],
-           'action':'msisdn_info',
-           'destination_msisdn' : msisdn}
+    payload = {
+        'login': json_data['login'],
+        'token' : json_data['token'],
+        'action':'msisdn_info',
+        'destination_msisdn' : msisdn
+        }
     airtime_url = json_data['airtime_url']
     products_url = json_data['products_url']
     msisdn_info = request_airtime_api(airtime_url,
-             payload)
+                                      payload)
     msisdn_info_json = jsonify(msisdn_info.content)
     operator_id = msisdn_info_json['operatorid']
     country_id = msisdn_info_json['countryid']
@@ -93,24 +95,24 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-  return 'Hello, World!'
+    return 'Hello, World!'
 
 @app.route('/resource', methods = ['POST'])
 def update_text():
-  logging.basicConfig(filename='myapp.log', level=logging.INFO)
-  logging.info('Started')
-  json_data = request.get_json()
-  apikey = json_data['apikey']
-  logging.info('%s ', apikey)
-  apisecret = json_data['apisecret']
-  login = json_data['login']
-  url_login = json_data['url_login']
-  token = json_data['token']
-  phone = json_data['phone']
-  #products = get_msisdn_products(phone,json_data,apikey,apisecret)
-  ping(login,url_login,token)
-  logging.info('Finished')
-  return json.dumps(json_date)
+    logging.basicConfig(filename='myapp.log', level=logging.INFO)
+    logging.info('Started')
+    json_data = request.get_json()
+    apikey = json_data['apikey']
+    logging.info('%s ', apikey)
+    apisecret = json_data['apisecret']
+    login = json_data['login']
+    url_login = json_data['url_login']
+    token = json_data['token']
+    phone = json_data['phone']
+    products = get_msisdn_products(phone,json_data,apikey,apisecret)
+    ping(login,url_login,token)
+    logging.info('Finished')
+    return json.dumps(products)
 
 if __name__ == '__main__': 
-  app.run()
+    app.run()
