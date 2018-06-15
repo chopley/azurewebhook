@@ -1,7 +1,6 @@
 from flask import Flask, abort, request, logging 
 import logging
 import json
-import pandas
 import time
 import hashlib
 import requests
