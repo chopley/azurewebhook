@@ -132,7 +132,7 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/upload_data', methods = ['POST'])
+@app.route('/addData', methods = ['POST'])
 def update_text():
     logging.basicConfig(filename='myapp.log', 
                         level=logging.INFO)
