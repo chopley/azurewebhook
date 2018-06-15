@@ -134,7 +134,8 @@ def hello_world():
 
 @app.route('/resource', methods = ['POST'])
 def update_text():
-    logging.basicConfig(filename='myapp.log', level=logging.INFO)
+    logging.basicConfig(filename='myapp.log', 
+                        level=logging.INFO)
     logging.info('Started')
     json_data = request.get_json()
     apikey = json_data['apikey']
@@ -144,15 +145,24 @@ def update_text():
     url_login = json_data['url_login']
     token = json_data['token']
     phone = json_data['phone']
-    products = get_msisdn_products(phone, json_data, apikey, apisecret)
-    product_id = get_product_id(products,"30MB")
-    fixed_recharge = payload_generation(phone,str(product_id),1)
+    value = json_data['products_val']
+    products = get_msisdn_products(phone, 
+                                   json_data, 
+                                   apikey, 
+                                   apisecret)
+    product_id = get_product_id(products,
+                                value)
+    fixed_recharge = payload_generation(phone,
+                                        str(product_id),
+                                        1)
     services = return_transferto_goods_vals_post(apikey,
                                                  apisecret,
                                                  'https://api.transferto.com/v1.1/transactions/fixed_value_recharges',
                                                  fixed_recharge)
     print(services.text)
-    ping(login,url_login,token)
+    ping(login,
+         url_login,
+         token)
     logging.info('Finished')
     return(services.text)
 
