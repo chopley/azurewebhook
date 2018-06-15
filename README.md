@@ -31,6 +31,7 @@ You can test it by:
 curl -i -H "Content-Type: application/json" -X POST -d "@addData.json" http://transferto.azurewebsites.net/getProducts
 
 You will need a json definition file that looks like:
+```javascript
 {
         "apikey":"", #from transferto
         "apisecret": "", #from transferto
@@ -43,7 +44,7 @@ You will need a json definition file that looks like:
         "products_val" : "", #a string (e.g. 30MB) that will be matched against available products to decide which product ID to load
         "simulate" : "0" #whether (1) or not (0) to simulate the transaction 
 }
-
+```
 # Contributing
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
