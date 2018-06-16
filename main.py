@@ -11,7 +11,7 @@ def home_screen():
     return 'Hmmmm!'
 
 @app.route('/getProducts', methods = ['POST'])
-def getProductObject():
+def get_product_object():
     """
     End point to return the products associated with a phone number
     """
@@ -21,7 +21,7 @@ def getProductObject():
     return(json.dumps(products))
 
 @app.route('/addData', methods = ['POST'])
-def addDataObject():
+def add_data_object():
     """
     End point to actually load data onto a phone number
     """
