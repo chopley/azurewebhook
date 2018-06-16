@@ -117,16 +117,17 @@ def get_msisdn_products(msisdn,json_data,apikey,apisecret):
     products_url = json_data['products_url']
     msisdn_info = request_airtime_api(airtime_url,
                                       payload)
-    msisdn_info_json = jsonify(msisdn_info.content)
+    msisdn_info_json = jsonify_airtime_api_response(msisdn_info.content)
     operator_id = msisdn_info_json['operatorid']
     country_id = msisdn_info_json['countryid']
     url = products_url +'/countries/'+country_id+'/services'
-    services = return_transferto_goods_vals(apikey,apisecret,url,'')
+    services = return_transferto_goods_vals_post(apikey,apisecret,url,'')
     url = products_url + '/operators/' + operator_id + '/products'
-    products = return_transferto_goods_vals(apikey,apisecret,url,'')
-    products_json = json.loads(products.content.decode('utf8'))
+    products = return_transferto_goods_vals_post(apikey,apisecret,url,'')
+    #return a dictionary using json.loads
+    #products_json = json.loads(products.content.decode('utf8')) 
     type_of_recharge = 'fixed_value_recharges'
-    return(products_json)
+    return(products.json())
 
 def get_product_id(product_dict,recharge_val):
     """
@@ -142,7 +143,7 @@ def get_product_id(product_dict,recharge_val):
     return(product['product_id'])
             
 
-def jsonify(transferto_content):
+def jsonify_airtime_api_response(transferto_content):
     """
     This function will return a json string of the airtime API
     It isn't pretty but it works.
