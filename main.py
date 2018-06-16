@@ -64,6 +64,16 @@ def update_text():
                                     fixed_recharge)
     return(services.text)
 
+@app.route('/getProductsObject', methods = ['POST'])
+def getProductObject():
+    """
+    End point to return the products associated with a phone number
+    """
+    json_data = request.get_json()
+    tf = Transferto(json_data) 
+    products = tf.get_msisdn_products()
+    return(json.dumps(products))
+
 @app.route('/addDataObject', methods = ['POST'])
 def addDataObject():
     """
