@@ -1,11 +1,8 @@
 from flask import Flask, abort, request, logging 
 import logging
 import json
-import time
-import hashlib
-import requests
-import ast
-import azurewebhook_functions
+
+from azurewebhook_functions import *
 
 app = Flask(__name__)
 

@@ -1,3 +1,8 @@
+import time
+import hashlib
+import requests
+import ast
+
 def payload_generation(phone,prod_id,simulate) :
     """
     Generate the data payload that is used to trigger a bundle
