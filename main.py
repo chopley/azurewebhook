@@ -62,11 +62,19 @@ def update_text():
                                     apisecret,
                                     'https://api.transferto.com/v1.1/transactions/fixed_value_recharges',
                                     fixed_recharge)
-    print(services.text)
-    ping(login,
-         url_login,
-         token)
-    logging.info('Finished')
+    return(services.text)
+
+@app.route('/addDataObject', methods = ['POST'])
+def addDataObject():
+    """
+    End point to actually load data onto a phone number
+    """
+    json_data = request.get_json()
+    tf = Transferto(json_data)  
+    tf.get_msisdn_products()
+    tf.get_product_id()
+    tf.payload_generation()
+    services = tf.post_transferto_goods('https://api.transferto.com/v1.1/transactions/fixed_value_recharges')
     return(services.text)
 
 if __name__ == '__main__': 
