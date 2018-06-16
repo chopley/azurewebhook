@@ -42,8 +42,8 @@ def payload_generation(phone,prod_id,simulate) :
   
 def get_transferto_goods(apikey,apisecret,url):
     """
-    This function could probably be removed
-    It is very similar to return_transferto_goods_vals_post.
+    This function provides the GET functionality to the 
+    TransferTo API for Goods and Services
     """
     import requests
     import time
@@ -63,8 +63,8 @@ def get_transferto_goods(apikey,apisecret,url):
 
 def post_transferto_goods(apikey,apisecret,url,payload):
     """
-    This function forms the basis of how to use the Product & Goods
-    API.
+    This function provides the POST functionality to the 
+    TransferTo API for Goods and Services
     This function generates the header files for the TransferTo product
     API.
     It uses the APIKEY, APISECRET and URL endpoint.
