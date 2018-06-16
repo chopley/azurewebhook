@@ -40,7 +40,7 @@ def payload_generation(phone,prod_id,simulate) :
         }
     return(fixed_recharge)
   
-def return_transferto_goods_vals(apikey,apisecret,url,payload):
+def get_transferto_goods(apikey,apisecret,url):
     """
     This function could probably be removed
     It is very similar to return_transferto_goods_vals_post.
@@ -61,7 +61,7 @@ def return_transferto_goods_vals(apikey,apisecret,url,payload):
     response = requests.get(url, headers=headers)
     return(response)
 
-def return_transferto_goods_vals_post(apikey,apisecret,url,payload):
+def post_transferto_goods(apikey,apisecret,url,payload):
     """
     This function forms the basis of how to use the Product & Goods
     API.
@@ -121,9 +121,9 @@ def get_msisdn_products(msisdn,json_data,apikey,apisecret):
     operator_id = msisdn_info_json['operatorid']
     country_id = msisdn_info_json['countryid']
     url = products_url +'/countries/'+country_id+'/services'
-    services = return_transferto_goods_vals_post(apikey,apisecret,url,'')
+    services = get_transferto_goods(apikey,apisecret,url)
     url = products_url + '/operators/' + operator_id + '/products'
-    products = return_transferto_goods_vals_post(apikey,apisecret,url,'')
+    products = get_transferto_goods(apikey,apisecret,url)
     #return a dictionary using json.loads
     #products_json = json.loads(products.content.decode('utf8')) 
     type_of_recharge = 'fixed_value_recharges'
@@ -221,10 +221,10 @@ def update_text():
     fixed_recharge = payload_generation(phone,
                                         str(product_id),
                                         simulate)
-    services = return_transferto_goods_vals_post(apikey,
-                                                 apisecret,
-                                                 'https://api.transferto.com/v1.1/transactions/fixed_value_recharges',
-                                                 fixed_recharge)
+    services = post_transferto_goods(apikey,
+                                    apisecret,
+                                    'https://api.transferto.com/v1.1/transactions/fixed_value_recharges',
+                                    fixed_recharge)
     print(services.text)
     ping(login,
          url_login,
