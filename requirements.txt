@@ -13,5 +13,5 @@ numpy==1.14.2
 requests==2.18.4
 six==1.11.0
 urllib3==1.22
-pyopenssl==18.0.0
+pyopenssl==17.5.0
 setuptools==39.0.1
