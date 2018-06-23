@@ -1,4 +1,4 @@
-from flask import Flask, abort, request, logging, requests
+from flask import Flask, abort, request, logging
 import logging
 import json
 

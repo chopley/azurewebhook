@@ -1,6 +1,5 @@
 import time
 import hashlib
-import requests
 import ast
 import json
 
