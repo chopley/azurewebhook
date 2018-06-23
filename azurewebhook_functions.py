@@ -3,7 +3,8 @@ import hashlib
 import ast
 import json
 import requests
-        
+from temba_client.v2 import TembaClient
+from temba_client.exceptions import TembaRateExceededError, TembaTokenError, TembaHttpError, TembaNoSuchObjectError
 
 class Transferto:
     def __init__(self):
@@ -11,12 +12,20 @@ class Transferto:
         
     def initiate_rapidpro_json(self,json_data):
         self.json_data = json_data
-        self.phone = self.json_data['phone']
-        self.value = self.json_data['products_val']
-        self.simulate = self.json_data['simulate']
+        self.phonee164 = self.json_data['contact']['urn']
+        self.phone = self.phonee164.replace("tel:+", "")
         print(json_data)
     
-    def read_credentials_file(self,filename):
+    def get_rapidpro_fields(self):
+        client = TembaClient(self.rapidpro_url, self.rapidpro_apikey)
+        contact = client.get_contacts(urn=self.phonee164).first()
+        self.value = contact.fields['transferto_bundle']
+        self.simulate = contact.fields['transferto_simulate']
+        print(self.value)
+        print(self.simulate)
+        return(contact.fields)
+    
+    def read_transferto_credentials_file(self,filename):
         with open(filename, encoding='utf-8') as data_file:
             data = json.loads(data_file.read())
         self.apikey = data['transferto_apikey']
@@ -28,18 +37,12 @@ class Transferto:
         self.products_url = data['transferto_products_url']
         print(self.products_url)
     
-    def initiate_test_json(self,json_data):
-        self.json_data = json_data
-        #self.apikey = json_data['apikey']
-        #self.apisecret = json_data['apisecret']
-        #self.login = json_data['login']
-        #self.url_login = json_data['url_login']
-        #self.token = json_data['token']
-        self.phone = json_data['phone']
-        self.value = json_data['products_val']
-        self.simulate = json_data['simulate']
-        #self.airtime_url = json_data['airtime_url']  
-        #self.products_url = json_data['products_url']
+    def read_rapidpro_credentials_file(self,filename):
+        with open(filename, encoding='utf-8') as data_file:
+            data = json.loads(data_file.read())
+        self.rapidpro_apikey = data['rapidpro_apikey']
+        self.rapidpro_url = data['rapidpro_url']
+        print(self.rapidpro_url)
             
     def payload_generation(self) :
         external_id = str(int(1000 * time.time())) 
