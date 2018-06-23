@@ -1,4 +1,4 @@
-from flask import Flask, abort, request, logging
+from flask import Flask, abort, request, logging, jsonify
 import logging
 import json
 import requests
@@ -53,8 +53,8 @@ def add_rapidpro_object():
     tf.get_product_id()
     tf.payload_generation()
     services = tf.post_transferto_goods('https://api.transferto.com/v1.1/transactions/fixed_value_recharges')
-    return(json.dumps(json_data))
-    #return(json.dumps(fields))
+    #return(services.text)
+    return(jsonify(fields))
 
 if __name__ == '__main__': 
     app.run(host= '0.0.0.0')
