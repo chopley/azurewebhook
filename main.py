@@ -49,12 +49,12 @@ def add_rapidpro_object():
     tf.read_rapidpro_credentials_file('rapidprocredentials.json')
     tf.initiate_rapidpro_json(json_data) 
     fields = tf.get_rapidpro_fields()
-    #tf.get_msisdn_products()
-    #tf.get_product_id()
-    #tf.payload_generation()
-    #services = tf.post_transferto_goods('https://api.transferto.com/v1.1/transactions/fixed_value_recharges')
-    #return(services.text)
-    return(json.dumps(fields))
+    tf.get_msisdn_products()
+    tf.get_product_id()
+    tf.payload_generation()
+    services = tf.post_transferto_goods('https://api.transferto.com/v1.1/transactions/fixed_value_recharges')
+    return(services.text)
+    #return(json.dumps(fields))
 
 if __name__ == '__main__': 
     app.run(host= '0.0.0.0')
