@@ -17,7 +17,7 @@ def get_product_object():
     """
     json_data = request.get_json()
     tf = Transferto() 
-    tf.read_credentials_file("./transfertocredentials.json") 
+    tf.read_credentials_file("transfertocredentials.json") 
     tf.initiate_rapidpro_json(json_data)
     products = tf.get_msisdn_products()
     return(json.dumps(products))
@@ -29,7 +29,7 @@ def add_data_object():
     """
     json_data = request.get_json()
     tf = Transferto()  
-    tf.read_credentials_file("./transfertocredentials.json") 
+    tf.read_credentials_file("transfertocredentials.json") 
     tf.initiate_rapidpro_json(json_data)
     tf.get_msisdn_products()
     tf.get_product_id()
