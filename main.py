@@ -29,7 +29,7 @@ def add_data_object():
     """
     json_data = request.get_json()
     tf = Transferto()  
-    tf.read_credentials_file("./transferto_credentials.json") 
+    tf.read_credentials_file("/d/home/site/wwwroot/transferto_credentials.json") 
     tf.initiate_rapidpro_json(json_data)
     tf.get_msisdn_products()
     tf.get_product_id()
