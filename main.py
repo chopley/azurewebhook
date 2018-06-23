@@ -2,6 +2,7 @@ from flask import Flask, abort, request, logging, jsonify
 import logging
 import json
 import requests
+from urllib.parse import parse_qs
 
 from azurewebhook_functions import *
 
@@ -43,18 +44,21 @@ def add_rapidpro_object():
     """
     End point to actually load data onto a phone number
     """
-    json_data = request.get_json()
-    tf = Transferto() 
-    tf.read_transferto_credentials_file('transfertocredentials.json')
-    tf.read_rapidpro_credentials_file('rapidprocredentials.json')
-    tf.initiate_rapidpro_json(json_data) 
-    fields = tf.get_rapidpro_fields()
-    tf.get_msisdn_products()
-    tf.get_product_id()
-    tf.payload_generation()
-    services = tf.post_transferto_goods('https://api.transferto.com/v1.1/transactions/fixed_value_recharges')
+    json_data = request.form
+    print('hehre')
+    print(json_data['run'])
+    print(json_data['phone'])
+    #tf = Transferto() 
+    #tf.read_transferto_credentials_file('transfertocredentials.json')
+    #tf.read_rapidpro_credentials_file('rapidprocredentials.json')
+    #tf.initiate_rapidpro_json(json_data) 
+    #fields = tf.get_rapidpro_fields()
+    #tf.get_msisdn_products()
+    #tf.get_product_id()
+    #tf.payload_generation()
+    #services = tf.post_transferto_goods('https://api.transferto.com/v1.1/transactions/fixed_value_recharges')
     #return(services.text)
-    return(jsonify(fields))
+    return(jsonify(json_data))
 
 if __name__ == '__main__': 
     app.run(host= '0.0.0.0')
