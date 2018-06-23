@@ -45,7 +45,7 @@ def add_rapidpro_object():
     """
     json_data = request.get_json()
     tf = Transferto() 
-    tf.read_credentials_file('credentials.json') 
+    tf.read_credentials_file('transfertocredentials.json') 
     print(json_data['contact']['urn'])
     #tf = Transferto()  
     #tf.initiate_rapidpro_json(json_data)
