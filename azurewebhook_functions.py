@@ -2,7 +2,7 @@ import time
 import hashlib
 import ast
 import json
-
+import requests
         
 
 class Transferto:
