@@ -12,8 +12,10 @@ class Transferto:
         
     def initiate_rapidpro_json(self,json_data):
         self.json_data = json_data
-        self.phonee164 = self.json_data['contact']['urn']
-        self.phone = self.phonee164.replace("tel:+", "")
+        self.phonee164 = 'tel:' + self.json_data['phone']
+        print(self.phonee164)
+        self.phone = self.json_data['phone'].replace("+", "")
+        print(self.phone)
         print(json_data)
     
     def get_rapidpro_fields(self):
