@@ -2,21 +2,46 @@ import time
 import hashlib
 import requests
 import ast
+import json
+
+        
 
 class Transferto:
-    def __init__(self, json_data):
+    def __init__(self):
+        print("A transferTo object is created.")
+        
+    def initiate_rapidpro_json(self,json_data):
         self.json_data = json_data
-        self.apikey = json_data['apikey']
-        self.apisecret = json_data['apisecret']
-        self.login = json_data['login']
-        self.url_login = json_data['url_login']
-        self.token = json_data['token']
+        self.phone = self.json_data['phone']
+        self.value = self.json_data['products_val']
+        self.simulate = self.json_data['simulate']
+        print(json_data)
+    
+    def read_credentials_file(self,filename):
+        with open(filename, encoding='utf-8') as data_file:
+            data = json.loads(data_file.read())
+        self.apikey = data['transferto_apikey']
+        self.apisecret = data['transferto_apisecret']
+        self.login = data['transferto_login']
+        self.url_login = data['transferto_url_login']
+        self.token = data['transferto_token']
+        self.airtime_url = data['transferto_airtime_url']  
+        self.products_url = data['transferto_products_url']
+        print(self.products_url)
+    
+    def initiate_test_json(self,json_data):
+        self.json_data = json_data
+        #self.apikey = json_data['apikey']
+        #self.apisecret = json_data['apisecret']
+        #self.login = json_data['login']
+        #self.url_login = json_data['url_login']
+        #self.token = json_data['token']
         self.phone = json_data['phone']
         self.value = json_data['products_val']
         self.simulate = json_data['simulate']
-        self.airtime_url = json_data['airtime_url']  
-        self.products_url = json_data['products_url']
-        
+        #self.airtime_url = json_data['airtime_url']  
+        #self.products_url = json_data['products_url']
+            
     def payload_generation(self) :
         external_id = str(int(1000 * time.time())) 
 
@@ -126,8 +151,7 @@ class Transferto:
             'action':'msisdn_info',
             'destination_msisdn' : self.phone
             }
-        
-        
+               
         msisdn_info = self.request_airtime_api(self.airtime_url)
         msisdn_info_json = self.jsonify_airtime_api_response(msisdn_info.content)
         operator_id = msisdn_info_json['operatorid']
