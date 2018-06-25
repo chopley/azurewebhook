@@ -59,7 +59,7 @@ def add_rapidpro_object():
     tf.payload_generation()
     services = tf.post_transferto_goods('https://api.transferto.com/v1.1/transactions/fixed_value_recharges')
     #return(services.text)
-    return(urllib.parse.urlencode(services.json()))
+    return(json.dumps(services.json()))
 
 if __name__ == '__main__': 
     app.run(host= '0.0.0.0')
