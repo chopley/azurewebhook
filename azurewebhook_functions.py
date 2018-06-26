@@ -181,7 +181,8 @@ class Transferto:
         product_dict = self.products
         recharge_val = self.value
         for product in product_dict["fixed_value_recharges"]:
-            product_name = product['product_name']
+            product_name = product['product_short_desc']
+            print(product_name)
             if recharge_val in product_name:
                 break        
         self.product_id = product['product_id'] 
