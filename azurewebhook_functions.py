@@ -48,7 +48,6 @@ class Transferto:
             
     def payload_generation(self) :
         external_id = str(int(1000 * time.time())) 
-
         # now create the json object that will be used
         fixed_recharge = {
             "account_number":self.phone,
@@ -58,7 +57,7 @@ class Transferto:
             "sender_sms_notification":"1",
             "sender_sms_text":"Sender message",
             "recipient_sms_notification":"1",
-            "recipient_sms_text":"",
+            "recipient_sms_text":"MomConnect",
             "sender":{
                 "last_name":"",
                 "middle_name":" ",
