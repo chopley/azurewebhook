@@ -5,7 +5,7 @@ import requests
 from urllib.parse import parse_qs
 import urllib
 from threading import Thread
-from datetime import datetime
+import datetime
 
 from azurewebhook_functions import *
 
@@ -23,7 +23,7 @@ def process_transferto(json_data):
     dict_vals = services.json()
     print(dict_vals['status_message'])
     transferto_update = {'transferto_status' : dict_vals['status_message'],
-                         'transferto_timestamp' : dict_vals['date']}
+                         'transferto_timestamp' : datetime.datetime.now().strftime("%d-%m-%Y %H:%M")}
     print(transferto_update)
     tf.write_rapidpro_fields(transferto_update)
     print(json.dumps(services.json()))
@@ -93,7 +93,7 @@ def add_rapidpro_thread():
     t.start()
     return jsonify(
         transferto_status='Starting',
-        transferto_timestamp=str(datetime.now()),
+        transferto_timestamp=datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
     )
 
 if __name__ == '__main__': 
