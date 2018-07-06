@@ -26,7 +26,12 @@ class Transferto:
         print(self.value)
         print(self.simulate)
         return(contact.fields)
-    
+
+    def write_rapidpro_fields(self,field_dict):
+        client = TembaClient(self.rapidpro_url, self.rapidpro_apikey)
+        contact = client.update_contact(self.phonee164,fields = field_dict)
+        return(contact.fields)
+   
     def read_transferto_credentials_file(self,filename):
         with open(filename, encoding='utf-8') as data_file:
             data = json.loads(data_file.read())
