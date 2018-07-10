@@ -25,6 +25,7 @@ class Transferto:
         self.simulate = contact.fields['transferto_simulate']
         print(self.value)
         print(self.simulate)
+        print(contact.fields['transferto_status'])
         return(contact.fields)
 
     def write_rapidpro_fields(self,field_dict):
