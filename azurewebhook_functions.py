@@ -13,19 +13,14 @@ class Transferto:
     def initiate_rapidpro_json(self,json_data):
         self.json_data = json_data
         self.phonee164 = 'tel:' + self.json_data['phone']
-        print(self.phonee164)
         self.phone = self.json_data['phone'].replace("+", "")
-        print(self.phone)
-        print(json_data)
+
     
     def get_rapidpro_fields(self):
         client = TembaClient(self.rapidpro_url, self.rapidpro_apikey)
         contact = client.get_contacts(urn=self.phonee164).first()
         self.value = contact.fields['transferto_bundle']
         self.simulate = contact.fields['transferto_simulate']
-        print(self.value)
-        print(self.simulate)
-        print(contact.fields['transferto_status'])
         return(contact.fields)
 
     def write_rapidpro_fields(self,field_dict):
