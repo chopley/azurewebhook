@@ -69,6 +69,14 @@ app = Flask(__name__)
 def home_screen():
     return 'Hmmmm!'
 
+@app.route('/healthTest', methods = ['GET'])
+def get_health_test():
+    """
+    Testing endpoint
+    """
+    print("Testing Endpoint")
+    return 'Testing Endpoint'
+
 @app.route('/getProducts', methods = ['POST'])
 def get_product_object():
     """
